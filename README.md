@@ -8,10 +8,14 @@ Download yolov4.weights file: https://drive.google.com/open?id=1cewMfusmPjYWbrnu
 
 
 ### Prerequisites
+
 * Tensorflow 2.3.0rc0
 
+
 ### Performance
+
 <p align="center"><img src="data/performance.png" width="640"\></p>
+
 
 ### Demo
 
@@ -31,13 +35,18 @@ python detect.py --weights ./weights/yolov4-tiny-416 --size 416 --model yolov4 -
 ```
 If you want to run yolov3 or yolov3-tiny change ``--model yolov3`` in command
 
+
 #### Output
 
 ##### Yolov4 original weight
+
 <p align="center"><img src="result.png" width="640"\></p>
 
+
 ##### Yolov4 tflite int8
+
 <p align="center"><img src="result-int8.png" width="640"\></p>
+
 
 ### Convert to tflite
 
@@ -57,22 +66,21 @@ python convert_tflite.py --weights ./checkpoints/yolov4-416 --output ./checkpoin
 # Run demo tflite model
 python detect.py --weights ./checkpoints/yolov4-416.tflite --size 416 --model yolov4 --image ./data/kite.jpg --framework tflite
 ```
+
 Yolov4 and Yolov4-tiny int8 quantization have some issues. I will try to fix that. You can try Yolov3 and Yolov3-tiny int8 quantization 
+
+
 ### Convert to TensorRT
-```bash# yolov3
-python save_model.py --weights ./data/yolov3.weights --output ./checkpoints/yolov3.tf --input_size 416 --model yolov3
-python convert_trt.py --weights ./checkpoints/yolov3.tf --quantize_mode float16 --output ./checkpoints/yolov3-trt-fp16-416
 
-# yolov3-tiny
-python save_model.py --weights ./data/yolov3-tiny.weights --output ./checkpoints/yolov3-tiny.tf --input_size 416 --tiny
-python convert_trt.py --weights ./checkpoints/yolov3-tiny.tf --quantize_mode float16 --output ./checkpoints/yolov3-tiny-trt-fp16-416
-
+```bash
 # yolov4
-python save_model.py --weights ./data/yolov4.weights --output ./checkpoints/yolov4.tf --input_size 416 --model yolov4
-python convert_trt.py --weights ./checkpoints/yolov4.tf --quantize_mode float16 --output ./checkpoints/yolov4-trt-fp16-416
+python save_model.py --weights ./darknet_weights/yolov4.weights --output ./weights/yolov4-416 --input_size 416 --model yolov4
+python convert_trt.py --weights ./weights/yolov4-416 --quantize_mode float16 --output ./weights/yolov4-416-trt-fp16
 ```
 
+
 ### Evaluate on COCO 2017 Dataset
+
 ```bash
 # run script in /script/get_coco_dataset_2017.sh to download COCO 2017 Dataset
 # preprocess coco dataset
@@ -91,6 +99,8 @@ python remove_space.py
 cd ..
 python main.py --output results_yolov4_tf
 ```
+
+
 #### mAP50 on COCO 2017 Dataset
 
 | Detection   | 512x512 | 416x416 | 320x320 |
@@ -98,10 +108,13 @@ python main.py --output results_yolov4_tf
 | YoloV3      | 55.43   | 52.32   |         |
 | YoloV4      | 61.96   | 57.33   |         |
 
+
 ### Benchmark
+
 ```bash
 python benchmarks.py --size 416 --model yolov4 --weights ./data/yolov4.weights
 ```
+
 #### TensorRT performance
  
 | YoloV4 416 images/s |   FP32   |   FP16   |   INT8   |
