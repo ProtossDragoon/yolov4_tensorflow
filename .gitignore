@@ -2,3 +2,4 @@
 *.pyc
 *.weights
 weights/*
+__pycache__
