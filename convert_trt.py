@@ -13,8 +13,8 @@ import os
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 
-flags.DEFINE_string('weights', './checkpoints/yolov4-416', 'path to weights file')
-flags.DEFINE_string('output', './checkpoints/yolov4-trt-fp16-416', 'path to output')
+flags.DEFINE_string('weights', './weights/yolov4-416', 'path to weights file')
+flags.DEFINE_string('output', './weights/yolov4-trt-fp16-416', 'path to output')
 flags.DEFINE_integer('input_size', 416, 'path to output')
 flags.DEFINE_string('quantize_mode', 'float16', 'quantize mode (int8, float16)')
 flags.DEFINE_string('dataset', "/media/user/Source/Data/coco_dataset/coco/5k.txt", 'path to dataset')
@@ -44,9 +44,9 @@ def save_trt():
   if FLAGS.quantize_mode == 'int8':
     conversion_params = trt.DEFAULT_TRT_CONVERSION_PARAMS._replace(
       precision_mode=trt.TrtPrecisionMode.INT8,
-      max_workspace_size_bytes=4000000000,
+      max_workspace_size_bytes=1<<30,
       use_calibration=True,
-      max_batch_size=8)
+      max_batch_size=1)
     converter = trt.TrtGraphConverterV2(
       input_saved_model_dir=FLAGS.weights,
       conversion_params=conversion_params)
@@ -54,16 +54,16 @@ def save_trt():
   elif FLAGS.quantize_mode == 'float16':
     conversion_params = trt.DEFAULT_TRT_CONVERSION_PARAMS._replace(
       precision_mode=trt.TrtPrecisionMode.FP16,
-      max_workspace_size_bytes=4000000000,
-      max_batch_size=8)
+      max_workspace_size_bytes=1<<30,
+      max_batch_size=1)
     converter = trt.TrtGraphConverterV2(
       input_saved_model_dir=FLAGS.weights, conversion_params=conversion_params)
     converter.convert()
   else :
     conversion_params = trt.DEFAULT_TRT_CONVERSION_PARAMS._replace(
       precision_mode=trt.TrtPrecisionMode.FP32,
-      max_workspace_size_bytes=4000000000,
-      max_batch_size=8)
+      max_workspace_size_bytes=1<<30,
+      max_batch_size=1)
     converter = trt.TrtGraphConverterV2(
       input_saved_model_dir=FLAGS.weights, conversion_params=conversion_params)
     converter.convert()

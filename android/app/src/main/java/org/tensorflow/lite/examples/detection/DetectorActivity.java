@@ -249,7 +249,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     }
 
     // Which detection model to use: by default uses Tensorflow Object Detection API frozen
-    // checkpoints.
+    // weights.
     private enum DetectorMode {
         TF_OD_API;
     }
