@@ -1,8 +1,8 @@
+import cv2
 import tensorflow as tf
 from absl import app, flags, logging
 from absl.flags import FLAGS
 import numpy as np
-import cv2
 from core.yolov4 import YOLOv4, YOLOv3, YOLOv3_tiny, decode
 import core.utils as utils
 import os
