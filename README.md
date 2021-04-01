@@ -74,7 +74,25 @@ Yolov4 and Yolov4-tiny int8 quantization have some issues. I will try to fix tha
 ```bash
 # yolov4
 python save_model.py --weights ./darknet_weights/yolov4.weights --output ./weights/yolov4-416 --input_size 416 --model yolov4
+python convert_trt.py --weights ./weights/yolov4-416 --quantize_mode float32 --output ./weights/yolov4-416-trt-fp32
+```
+
+```bash
+# yolov4
+python save_model.py --weights ./darknet_weights/yolov4.weights --output ./weights/yolov4-416 --input_size 416 --model yolov4
 python convert_trt.py --weights ./weights/yolov4-416 --quantize_mode float16 --output ./weights/yolov4-416-trt-fp16
+```
+
+```bash
+# yolov4-tiny
+python save_model.py --weights ./darknet_weights/yolov4-tiny.weights --output ./weights/yolov4-tiny-416 --input_size 416 --model yolov4 --tiny
+python convert_trt.py --weights ./weights/yolov4-tiny-416 --quantize_mode float32 --output ./weights/yolov4-tiny-416-trt-fp32
+```
+
+```bash
+# yolov4-tiny
+python save_model.py --weights ./darknet_weights/yolov4-tiny.weights --output ./weights/yolov4-tiny-416 --input_size 416 --model yolov4 --tiny
+python convert_trt.py --weights ./weights/yolov4-tiny-416 --quantize_mode float16 --output ./weights/yolov4-tiny-416-trt-fp16
 ```
 
 
