@@ -72,25 +72,30 @@ Yolov4 and Yolov4-tiny int8 quantization have some issues. I will try to fix tha
 ### Convert to TensorRT
 
 ```bash
-# yolov4
+# yolov4 FLOAT32
 python save_model.py --weights ./darknet_weights/yolov4.weights --output ./weights/yolov4-416 --input_size 416 --model yolov4
 python convert_trt.py --weights ./weights/yolov4-416 --quantize_mode float32 --output ./weights/yolov4-416-trt-fp32
 ```
 
+<br>
+
 ```bash
-# yolov4
+# yolov4 FLOAT16
 python save_model.py --weights ./darknet_weights/yolov4.weights --output ./weights/yolov4-416 --input_size 416 --model yolov4
 python convert_trt.py --weights ./weights/yolov4-416 --quantize_mode float16 --output ./weights/yolov4-416-trt-fp16
 ```
+<br>
 
 ```bash
-# yolov4-tiny
+# yolov4-tiny FLOAT32
 python save_model.py --weights ./darknet_weights/yolov4-tiny.weights --output ./weights/yolov4-tiny-416 --input_size 416 --model yolov4 --tiny
 python convert_trt.py --weights ./weights/yolov4-tiny-416 --quantize_mode float32 --output ./weights/yolov4-tiny-416-trt-fp32
 ```
 
+<br>
+
 ```bash
-# yolov4-tiny
+# yolov4-tiny FLOAT16
 python save_model.py --weights ./darknet_weights/yolov4-tiny.weights --output ./weights/yolov4-tiny-416 --input_size 416 --model yolov4 --tiny
 python convert_trt.py --weights ./weights/yolov4-tiny-416 --quantize_mode float16 --output ./weights/yolov4-tiny-416-trt-fp16
 ```
